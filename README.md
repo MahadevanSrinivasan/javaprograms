@@ -1,2 +1,2 @@
 # javaprograms
-Java Programs
+Anything goes. Mostly Programs in Java.
