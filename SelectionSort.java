@@ -2,22 +2,30 @@ import java.util.*;
 
 public class SelectionSort
 {
-  public static int[] Sort(int[] a)
+  public static void Sort(int[] a)
   {
     int length = a.length;
+    int minLoc;
     for(int i = 0; i < length; i++)
     {
+      minLoc = i;
       for(int j = i; j < length; j++)
       {
-        if(a[i] > a[j])
+        if(a[minLoc] > a[j])
         {
-          int temp = a[j];
-          a[j] = a[i];
-          a[i] = temp;
+          minLoc = j;
         }
       }
+      int temp = a[i]; a[i] = a[minLoc]; a[minLoc] = temp;
+      System.out.print("Iteration " + (i+1) + ": "); printArray(a);
     }
-   return a;
+  }
+
+  public static void printArray(int[] a)
+  {
+    for(int i = 0; i < a.length; i++)
+      System.out.print(a[i] + " ");
+    System.out.println();
   }
 
   public static void main(String args[])
@@ -30,14 +38,10 @@ public class SelectionSort
       for(int i = 0; i < numOfElems; i++)
       {
         a[i] = rand.nextInt(100);
-        System.out.print(a[i] + " ");
       }
-      System.out.println();
+      printArray(a);
       Sort(a);
-      for(int i = 0; i < numOfElems; i++) 
-        System.out.print(a[i] + " ");
-      System.out.println();
+      printArray(a);
     }
   }
 }
-
