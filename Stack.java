@@ -36,6 +36,16 @@ public class Stack<Item> implements Iterable<Item>
     return s.toString();
   }
 
+  public Node getNode(Item data)
+  {
+    Node curr = head;
+    while(curr != null && curr.item != data)
+    {
+      curr = curr.next;
+    }
+    return curr;
+  }
+
   public Boolean isEmpty()
   {
     return (head == null);
@@ -133,6 +143,32 @@ public class Stack<Item> implements Iterable<Item>
       curr = curr.next;
     }
   }
+  public Node isCircular()
+  {
+    Node curr1 = head;
+    Node curr2 = head;
+    /* If the fast moving pointer reaches the end,
+       then there is no loop */
+    while(curr2.next != null && curr2.next.next != null)
+    {
+      curr1 = curr1.next;
+      curr2 = curr2.next.next;
+
+      /* No way curr1 can be curr2 unless there is a loop */
+      if(curr1 == curr2)
+      {
+        curr1 = head;
+        while(curr1 != curr2)
+        {
+          curr1 = curr1.next;
+          curr2 = curr2.next;
+        }
+        return curr1;
+      }
+    }
+    return null;
+  }
+
 
   private static class Node<Item>
   {
@@ -150,9 +186,13 @@ public class Stack<Item> implements Iterable<Item>
      System.out.println("(" + s.size() + " left on stack)");
      System.out.println(s.toString());
      s.deleteDuplicatesWithoutMap();
-     while(!s.isEmpty())
-     {
-       System.out.println("Popped " + s.pop() + " Left: " + s.size());
-     }
+     System.out.println("(" + s.size() + " left on stack)");
+     System.out.println(s.toString());
+     System.out.println("IsCircular? : " + s.isCircular());
+
+     Node nodeC = s.getNode('C');
+     Node nodeE = s.getNode('E');
+     nodeE.next = nodeC;
+     System.out.println("IsCircular? : " + s.isCircular().item);
   }
 }
